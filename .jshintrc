@@ -3,5 +3,6 @@
   "unused": true,
   "predef": ["console", "window", "document"],
   "laxbreak": true,
-  "loopfunc": true
+  "loopfunc": true,
+  "esversion": 6
 }

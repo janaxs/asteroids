@@ -52,6 +52,19 @@ HTML_LINT_OPTIONS 	=
 
 # ------------------------------------------------------------------------
 #
+# ES6
+#
+JS_COMPILE 			= webpack
+JS_COMPILE_OPTIONS 	= --config .webpack.config.js
+
+js-compile: 
+	$(JS_COMPILE) $(JS_COMPILE_OPTIONS)
+
+
+
+
+# ------------------------------------------------------------------------
+#
 # General and combined targets
 #
 
