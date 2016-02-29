@@ -1,7 +1,6 @@
 /**
  * Canvas utilities
  */
-
 export default function() {
     "use strict";
 
@@ -10,10 +9,10 @@ export default function() {
      */
     function fullWindow(canvasId) {
         var canvas = document.getElementById(canvasId);
-        var ct = canvas.getContext("2d");
+        var ctx = canvas.getContext("2d");
 
-         ct.canvas.width  = Math.floor(window.innerWidth) - 1;
-         ct.canvas.height = Math.floor(window.innerHeight) - 1;
+         ctx.canvas.width  = Math.floor(window.innerWidth) - 1;
+         ctx.canvas.height = Math.floor(window.innerHeight) - 1;
     }
 
 

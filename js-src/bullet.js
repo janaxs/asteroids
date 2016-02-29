@@ -2,12 +2,13 @@
  * The ship.
  */
 import Vector from "utils/vector";
-import Force from "utils/force";
 
- export default class Ship {
+ export default class Bullet {
 
      constructor(options = {}) {
-         var force = new Force();
+
+
+///
 
          this.height     = options.height || 20;
          this.width      = options.width  || 10;
@@ -73,31 +74,6 @@ import Force from "utils/force";
         this.position.y += this.speed.y * Math.sin(this.direction) * td;
         this.position.iadd(this.velocity.muls(td));
     }
-
-
-    throttle(td) {
-        this.accelerateForce(this.speed, td);
-    }
-
-
-
-    rotateLeft() {
-        this.direction -= Math.PI / 30;
-    }
-
-
-
-    rotateRight() {
-        this.direction += Math.PI / 30;
-    }
-
-
-
-    breaks(td) {
-        this.breakForce(this.speed, td);
-        this.breakForce(this.velocity, td);
-    }
-
 
 
     update(key, td, width, height) {

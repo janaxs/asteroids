@@ -1,41 +1,106 @@
 /**
  * Asteroids, the Game
  */
-window.Asteroids = (function(){
-  var canvas, ct, ship, lastGameTick;
+import "utils/request-anim-frame";
+import Canvas from "utils/canvas";
+import Vector from "utils/vector";
+import Key from "utils/key-events";
+import Ship from "ship";
+import Bullet from "bullet";
 
-  var init = function(canvas) {
-    canvas = document.getElementById(canvas);
-    ct = canvas.getContext('2d');
-    width = canvas.width,
-    height = canvas.height,
-    ct.lineWidth = 1;
-    ct.strokeStyle = 'hsla(0,0%,100%,1)',
-    ship = new Player(10, 20, new Vector(width/2, height/2));
+export default function() {
+    "use strict";
 
-    console.log('Init the game');
-  };
+    // Hold grapic context
+    var ctx;
 
-  var update = function(td) {
-    ship.update(td, width, height);
-  };
+    // Remember the time since last update & render
+    var lastGameTick;
 
-  var render = function() {
-    ct.clearRect(0,0,width,height);
-    ship.draw(ct);
-  };
+    // Hold the ship
+    var ship;
 
-  var gameLoop = function() {
-    var now = Date.now();
-    td = (now - (lastGameTick || now)) / 1000; // Timediff since last frame / gametick
-    lastGameTick = now;
-    requestAnimFrame(gameLoop);
-    update(td);
-    render();
-  };
+    // Object for keypress
+    var key;
 
-  return {
-    'init': init,
-    'gameLoop': gameLoop
-  }
-})();
+    // Game area
+    var width;
+    var height;
+
+
+    /**
+     * Set the size of the canvas.
+     */
+    function init(canvasId) {
+        // Set canvas drawing context
+        var canvas = document.getElementById(canvasId);
+        ctx = canvas.getContext("2d");
+
+        // Resize canvas and make it listen to window resize events
+        var canvasUtils = Canvas();
+        canvasUtils.fullWindow("canvas1");
+        canvasUtils.resizeOnWindowResize("canvas1");
+
+        // TODO Need to support resize
+        width = canvas.width;
+        height = canvas.height;
+
+        // Default draw style
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "hsla(0,0%, 100%, 1)";
+
+        // Add the ship and place it in the middle
+        ship = new Ship();
+        ship.moveTo(new Vector(canvas.width / 2, canvas.height / 2));
+
+        // Key pressed
+        key = Key();
+    }
+
+
+
+    /**
+     *
+     */
+    function update(td) {
+        ship.update(key, td, width, height);
+        bullet.update(key, td, width, height);
+    }
+
+
+
+    /**
+     *
+     */
+    function render() {
+        ctx.clearRect(0, 0, width, height);
+        ship.draw(ctx, key);
+        bullet.draw(ctx);
+    }
+
+
+
+    /**
+     *
+     */
+    function gameLoop() {
+        // Timediff since last frame / gametick
+        var now = Date.now();
+        var td = (now - (lastGameTick || now)) / 1000;
+        lastGameTick = now;
+
+        window.requestAnimFrame(gameLoop);
+        update(td);
+        render();
+    }
+
+
+
+    /**
+     *
+     */
+    return {
+        "init": init,
+        "gameLoop": gameLoop
+    };
+}
