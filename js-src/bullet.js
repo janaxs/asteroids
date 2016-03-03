@@ -17,9 +17,6 @@ import Vector from "utils/vector";
          this.speed      = options.speed || new Vector();
          this.direction  = options.direction || 0;
 
-         this.accelerateForce = options.accelerateForce || force.createAcceleration(new Vector(80, 80));
-         this.breakForce = options.breakForce || force.createDamping(0.97);
-         this.dampForce = options.dampForce || force.createDamping(0.999);
     }
 
 
@@ -27,9 +24,6 @@ import Vector from "utils/vector";
     draw(ctx, key) {
         var x = this.width / 2;
         var y = this.height / 2;
-
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = 'hsla(0,0%,100%,1)';
 
         ctx.save();
         ctx.translate(this.position.x, this.position.y);
