@@ -1,5 +1,5 @@
 /**
- * The ship.
+ * Bullets.
  */
 import Vector from "utils/vector";
 

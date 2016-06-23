@@ -6,7 +6,7 @@ import Canvas from "utils/canvas";
 import Vector from "utils/vector";
 import Key from "utils/key-events";
 import Ship from "ship";
-import Bullet from "bullet";
+//import Bullet from "bullet";
 
 export default function() {
     "use strict";
@@ -64,7 +64,7 @@ export default function() {
      */
     function update(td) {
         ship.update(key, td, width, height);
-        bullet.update(key, td, width, height);
+        //bullet.update(key, td, width, height);
     }
 
 
@@ -75,7 +75,7 @@ export default function() {
     function render() {
         ctx.clearRect(0, 0, width, height);
         ship.draw(ctx, key);
-        bullet.draw(ctx);
+        //bullet.draw(ctx);
     }
 
 

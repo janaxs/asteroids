@@ -1,16 +1,16 @@
 var path = require("path");
 module.exports = {
-    entry: "./js-src/main.js",
+    entry: "./src/js/main.js",
     output: {
         path: path.join(__dirname, "."),
-        filename: "asteroids.js"
+        filename: "webroot/js/asteroids.js"
     },
     module: {
         loaders: [
             {
                 //test: /\.(js|jsx)$/,
                 //exclude: /(node_modules|bower_components)/,
-                test: path.join(__dirname, "js-src"),
+                test: path.join(__dirname, "src/js"),
                 loader: "babel-loader",
                 query: {
                     presets: ["es2015"]
@@ -21,7 +21,7 @@ module.exports = {
     resolve: {
       // tell webpack where to look for required files
       modulesDirectories: [
-        "js-src"
+        "src/js"
       ],
   },
     devtool: "#inline-source-map"
