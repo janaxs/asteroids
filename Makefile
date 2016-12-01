@@ -12,21 +12,21 @@ HELPTEXT 		= "$(ACTION)" `egrep "^\# target: $(1) " Makefile | sed "s/\# target:
 
 
 # The fileset
-JS_FILES 	= js/asteroids.js
+JS_FILES 	= src/js/asteroids.js
 JS_MINIFIED = $(JS_FILES:.js=.min.js)
 
-LESS_FILES 		= css/asteroids.less
+LESS_FILES 		= src/less/asteroids.less
 LESS_COMPILED 	= $(LESS_FILES:.less=.css)
 LESS_MINIFIED 	= $(LESS_FILES:.less=.min.css)
 
 HTML_FILES	= $(wildcard *.html)
 
-
+BIN = node_modules/.bin
 
 #
 # Tool to compile and minify less code
 #
-LESS_COMPILE			= lessc
+LESS_COMPILE			= $(BIN)/lessc
 LESS_COMPILE_OPTIONS 	= 
 
 LESS_MINIFY				= $(LESS_COMPILE)
@@ -38,16 +38,16 @@ LESS_LINT_OPTIONS 		= --lint
 
 
 # Tool to compile, check and minimize javascript code
-JS_CODESTYLE 			= jscs
+JS_CODESTYLE 			= $(BIN)/jscs
 JS_CODESTYLE_OPTIONS 	=
 
-JS_LINT 				= jshint
+JS_LINT 				= $(BIN)/jshint
 JS_LINT_OPTIONS 		=
 
-JS_MINIFY 			= uglifyjs
+JS_MINIFY 			= $(BIN)/uglifyjs
 JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 
-JS_COMPILE 			= webpack
+JS_COMPILE 			= $(BIN)/webpack
 JS_COMPILE_OPTIONS 	= --config .webpack.config.js
 
 
@@ -55,7 +55,7 @@ JS_COMPILE_OPTIONS 	= --config .webpack.config.js
 #
 # Tool to lint HTML code
 #
-HTML_LINT 			= htmlhint
+HTML_LINT 			= $(BIN)/htmlhint
 HTML_LINT_OPTIONS 	= 
 
 
@@ -146,7 +146,7 @@ js-minify: $(JS_FILES) $(JS_MINIFIED)
 
 %.min.js: %.js
 	@echo "==> Minifying $<"
-	$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@ $<
+	#$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@ $<
 
 
 

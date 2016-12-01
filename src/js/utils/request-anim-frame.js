@@ -5,8 +5,8 @@
 /**
  * requestAnimFrame
  */
-window.requestAnimFrame = (function(){
-    return window.requestAnimationFrame  ||
+window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame    ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame    ||
         window.oRequestAnimationFrame      ||
@@ -21,8 +21,8 @@ window.requestAnimFrame = (function(){
 /**
  * cancelRequestAnimFrame
  */
-window.cancelRequestAnimFrame = (function(){
-    return window.cancelRequestAnimationFrame ||
+window.cancelRequestAnimFrame = (function() {
+    return window.cancelRequestAnimationFrame    ||
         window.webkitCancelRequestAnimationFrame ||
         window.mozCancelRequestAnimationFrame    ||
         window.oCancelRequestAnimationFrame      ||
