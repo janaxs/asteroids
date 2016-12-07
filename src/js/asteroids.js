@@ -6,7 +6,7 @@ import Canvas from "utils/canvas";
 import Vector from "utils/vector";
 import Key from "utils/key-events";
 import Ship from "ship";
-//import Bullet from "bullet";
+import Bullet from "bullet";
 
 export default function() {
     "use strict";
@@ -19,6 +19,9 @@ export default function() {
 
     // Hold the ship
     var ship;
+
+    // Hold the bullets
+    var bullet;
 
     // Object for keypress
     var key;
@@ -46,12 +49,15 @@ export default function() {
         height = canvas.height;
 
         // Default draw style
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "hsla(0,0%, 100%, 1)";
+        //ctx.lineWidth = 1;
+        //ctx.strokeStyle = "hsla(0,0%, 100%, 1)";
 
         // Add the ship and place it in the middle
         ship = new Ship();
         ship.moveTo(new Vector(canvas.width / 2, canvas.height / 2));
+
+        // Add Bullets
+        bullet = new Bullet();
 
         // Key pressed
         key = Key();
@@ -64,7 +70,7 @@ export default function() {
      */
     function update(td) {
         ship.update(key, td, width, height);
-        //bullet.update(key, td, width, height);
+        bullet.update(key, td, ship.getPosition());
     }
 
 
@@ -75,7 +81,7 @@ export default function() {
     function render() {
         ctx.clearRect(0, 0, width, height);
         ship.draw(ctx, key);
-        //bullet.draw(ctx);
+        bullet.draw(ctx);
     }
 
 

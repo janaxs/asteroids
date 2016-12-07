@@ -16,9 +16,10 @@ import Force from "utils/force";
          this.speed      = options.speed || new Vector();
          this.direction  = options.direction || 0;
 
-         this.accelerateForce = options.accelerateForce || force.createAcceleration(new Vector(80, 80));
+         this.accelerateForce = options.accelerateForce
+            || force.createAcceleration(new Vector(80, 80));
          this.breakForce = options.breakForce || force.createDamping(0.97);
-         this.dampForce = options.dampForce || force.createDamping(0.999);
+         this.dampForce  = options.dampForce  || force.createDamping(0.999);
     }
 
 
@@ -140,5 +141,11 @@ import Force from "utils/force";
         if (this.position.x < -this.width) {
             this.position.x = width;
         }
+    }
+
+
+
+    getPosition() {
+        return this.position;
     }
 }

@@ -16,80 +16,85 @@ import Vector from "utils/vector";
          this.velocity   = options.velocity || new Vector();
          this.speed      = options.speed || new Vector();
          this.direction  = options.direction || 0;
+         this.bullets = [];
 
     }
 
 
 
     draw(ctx, key) {
-        var x = this.width / 2;
-        var y = this.height / 2;
 
         ctx.save();
-        ctx.translate(this.position.x, this.position.y);
-        ctx.rotate(this.direction + Math.PI / 2);
-        ctx.beginPath();
-        ctx.moveTo(0, -y);
-        ctx.lineTo(x, y);
-        ctx.lineTo(0, 0.8 * y);
-        ctx.lineTo(-x, y);
-        ctx.lineTo(0, -y);
 
-        if (key.isDown(key.UP, key.W)) {
-            ctx.moveTo(0, y);
-            ctx.lineTo(-2, y + 10);
-            ctx.lineTo(0, y + 8);
-            ctx.lineTo(2, y + 10);
-            ctx.lineTo(0, y);
-        }
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = 'hsla(0,0%,100%,1)';
 
-        if (key.isDown(key.DOWN, key.S)) {
-            ctx.moveTo(y + 4, 0);
-            ctx.arc(0, 0, y + 4, 0, Math.PI, true);
+        ctx.fillStyle = "rgb(200,0,0)";
+        ctx.fillRect (10, 10, 50, 50);
+
+        ctx.moveTo(100, 100);
+        ctx.lineTo(200, 200);
+        
+        for (let i = 0, len = this.bullets.length; i < len; i++) {
+            //
+            ctx.translate(this.bullets[i].x, this.bullets[i].y);
+            ctx.beginPath();
+            ctx.moveTo(this.bullets[i].x, this.bullets[i].y);
+            ctx.lineTo(this.bullets[i].x + 10, this.bullets[i].y + 10);
+            
+            //ctx.moveTo(0, 0);
+            //ctx.lineTo(10, 10);
+            
+    //        ctx.stroke();
+            /*
+            ctx.fillRect (
+                this.bullets[i].x,
+                this.bullets[i].y,
+                this.bullets[i].x + 10,
+                this.bullets[i].y + 10
+            );*/
+/*
+            ctx.translate(this.bullets[i].x + 40, this.bullets[i].y + 40);
+            ctx.beginPath();
+            ctx.lineTo(10, 10);
+            ctx.stroke();
+            */
         }
 
         ctx.stroke();
+
         ctx.restore();
     }
 
 
 
-    moveTo(position) {
-        this.position = position;
-        this.position.x += this.width / 2;
-        this.position.y += this.height / 2;
+    add(position) {
+        this.bullets.push(position.clone());
     }
 
 
-
-    moveForward(td) {
+    move(td) {
+        for (let i = 0, len = this.bullets.length; i < len; i++) {
+            this.bullets[i].x += 1;
+            this.bullets[i].y += 1;
+        }
+        /*
         this.dampForce(this.speed, td);
         this.position.x += this.speed.x * Math.cos(this.direction) * td;
         this.position.y += this.speed.y * Math.sin(this.direction) * td;
         this.position.iadd(this.velocity.muls(td));
+        */
     }
 
 
-    update(key, td, width, height) {
-        if (key.isDown(key.UP, key.W)) {
-            this.throttle(td);
-        }
-
-        if (key.isDown(key.LEFT, key.A)) {
-            this.rotateLeft();
-        }
-
-        if (key.isDown(key.DOWN, key.S)) {
-            this.breaks(td);
-        }
-
-        if (key.isDown(key.RIGHT, key.D)) {
-            this.rotateRight();
+    update(key, td, position) {
+        if (key.isDown(key.SPACE)) {
+            this.add(position);
         }
 
         //Forces.update(this.velocity, td);
-        this.moveForward(td);
-        this.stayInArea(width, height);
+        this.move(td);
+        //this.stayInArea(width, height);
     }
 
 

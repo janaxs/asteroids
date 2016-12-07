@@ -31,4 +31,9 @@ export default class Vector {
         this.y += vector.y;
         return this;
     }
+
+    // Return a clone
+    clone() {
+        return new Vector(this.x, this.y);
+    }
 }

@@ -60,6 +60,11 @@ HTML_LINT_OPTIONS 	=
 
 
 
+# target: all - Default target, run tests and build
+#all: test build
+all: js-compile
+
+
 # target: help       - Displays help for this Makefile.
 .PHONY:  help
 help:
@@ -84,8 +89,6 @@ js-compile:
 # General and combined targets
 #
 
-# target: all - Default target, run tests and build
-all: test build
 
 
 # target: test - Do all tests

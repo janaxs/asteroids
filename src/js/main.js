@@ -8,13 +8,11 @@ import Asteroids from "asteroids";
 /**
  * Main to start all up.
  */
-function main() {
+window.addEventListener("load", function () {
     "use strict";
 
     var asteroids = Asteroids();
 
     asteroids.init("canvas1");
     asteroids.gameLoop();
-}
-
-window.addEventListener("load", main, false);
+}, false);
