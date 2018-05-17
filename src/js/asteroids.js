@@ -7,6 +7,7 @@ import Vector from "utils/vector";
 import Key from "utils/key-events";
 import Ship from "ship";
 import Bullet from "bullet";
+import Hud from "hud";
 
 export default function() {
     "use strict";
@@ -29,6 +30,9 @@ export default function() {
     // Game area
     var width;
     var height;
+
+    // Hud
+    let hud;
 
 
     /**
@@ -61,6 +65,10 @@ export default function() {
 
         // Key pressed
         key = Key();
+
+        // Hud
+        hud = Hud();
+        hud.init();
     }
 
 

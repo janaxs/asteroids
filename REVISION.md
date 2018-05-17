@@ -1,6 +1,15 @@
 Revision history
 =====================================
 
+
+TODO (2018-05-17)
+-------------------------------------
+
+* Full screen resize (does not resize screen when going to fullscreen)
+* Wrap browser specific fullscreen utilities in own module.
+
+
+
 v1.0.0 (2016-12-07)
 -------------------------------------
 

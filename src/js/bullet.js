@@ -17,6 +17,7 @@ import Vector from "utils/vector";
          this.speed      = options.speed || new Vector();
          this.direction  = options.direction || 0;
          this.bullets = [];
+         this.ticksSinceLastAdd = 0;
 
     }
 
@@ -26,21 +27,22 @@ import Vector from "utils/vector";
 
         ctx.save();
 
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = 'hsla(0,0%,100%,1)';
+        // ctx.lineWidth = 5;
+        // ctx.strokeStyle = 'hsla(0,0%,100%,1)';
 
-        ctx.fillStyle = "rgb(200,0,0)";
-        ctx.fillRect (10, 10, 50, 50);
+        // ctx.fillStyle = "rgb(200,0,0)";
+        // ctx.fillRect (10, 10, 50, 50);
 
-        ctx.moveTo(100, 100);
-        ctx.lineTo(200, 200);
-        
+        // ctx.moveTo(100, 100);
+        // ctx.lineTo(200, 200);
+        //console.log(this.bullets.length);
+    
         for (let i = 0, len = this.bullets.length; i < len; i++) {
             //
-            ctx.translate(this.bullets[i].x, this.bullets[i].y);
-            ctx.beginPath();
-            ctx.moveTo(this.bullets[i].x, this.bullets[i].y);
-            ctx.lineTo(this.bullets[i].x + 10, this.bullets[i].y + 10);
+            // ctx.translate(this.bullets[i].x, this.bullets[i].y);
+            // ctx.beginPath();
+            // ctx.moveTo(this.bullets[i].x, this.bullets[i].y);
+            // ctx.lineTo(this.bullets[i].x + 10, this.bullets[i].y + 10);
             
             //ctx.moveTo(0, 0);
             //ctx.lineTo(10, 10);
@@ -59,18 +61,27 @@ import Vector from "utils/vector";
             ctx.lineTo(10, 10);
             ctx.stroke();
             */
+            
+            ctx.fillStyle = "rgb(255, 255, 255)";
+            ctx.fillRect (this.bullets[i].x, this.bullets[i].y, 4, 4);
+
         }
 
         ctx.stroke();
-
         ctx.restore();
     }
 
 
 
     add(position) {
-        this.bullets.push(position.clone());
+        console.log(this.bullets.length);
+
+        if (this.bullets.length < 10) {
+            this.bullets.push(position.clone());
+            this.ticksSinceLastAdd = 10;
+        }
     }
+
 
 
     move(td) {
@@ -87,8 +98,14 @@ import Vector from "utils/vector";
     }
 
 
+
     update(key, td, position) {
-        if (key.isDown(key.SPACE)) {
+        // Delay shot when recently did shoot
+        if (this.ticksSinceLastAdd > 0) {
+            this.ticksSinceLastAdd--;
+        }
+
+        if (key.isDown(key.SPACE) && this.ticksSinceLastAdd === 0) {
             this.add(position);
         }
 
